@@ -2,15 +2,13 @@ package fr.charly.mampuyaExam.DTO;
 
 import fr.charly.mampuyaExam.entity.Round;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
+
+import java.util.List;
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
+@Data
 public class GameDTO {
 
     @NotBlank
@@ -28,6 +26,10 @@ public class GameDTO {
     @NotBlank
     private Long mapId;
 
-    private Long roundId;
+    @NotBlank
+    private List<Round>  round;
+
+    @NotBlank
+    private String userId;
 
 }

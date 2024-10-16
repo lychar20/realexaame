@@ -27,4 +27,6 @@ public class RoundService implements ServiceInterface <Round, Long, RoundDTO> {
     public Round findOneById(Long id) {
         return roundRepository.findById(id).orElseThrow(EntityNotFoundException::new);
     }
+
+
 }

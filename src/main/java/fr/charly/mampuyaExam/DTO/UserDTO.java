@@ -3,18 +3,14 @@ package fr.charly.mampuyaExam.DTO;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.time.LocalDate;
 
 
 @NoArgsConstructor
 @AllArgsConstructor
-@Getter
-@Setter
+@Data
 public class UserDTO {
 
     @Email
@@ -24,7 +20,7 @@ public class UserDTO {
     @NotBlank
     private String username;
 
-    @NotBlank
+
     private LocalDate birthedAt;
 
 

@@ -16,8 +16,8 @@ import java.util.List;
 public class GameService implements ServiceListInterface<Game, String, GameDTO, GameDTO> {
 
     private GameRepository gameRepository;
-    private RoundService roundService;
     private MapService mapService;
+    private UserService userService;
 
     @Override
     public List<Game> list() {
@@ -27,12 +27,13 @@ public class GameService implements ServiceListInterface<Game, String, GameDTO, 
     @Override
     public Game create(GameDTO gameDTO) {
         Game game = new Game();
-        game.setHasPan(gameDTO.getHasZoom());
+        game.setHasPan(gameDTO.getHasPan());
         game.setHasZoom(gameDTO.getHasZoom());
         game.setHasMove(gameDTO.getHasMove());
         game.setMaximumTime(gameDTO.getMaximumTime());
         game.setMap(mapService.findOneById(gameDTO.getMapId()));
-
+        game.setUser(userService.findOneById(gameDTO.getUserId()));
+        game.setRounds(gameDTO.getRound());
         return gameRepository.saveAndFlush(game);
     }
 

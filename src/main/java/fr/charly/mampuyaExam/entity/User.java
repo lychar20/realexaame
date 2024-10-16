@@ -1,5 +1,7 @@
 package fr.charly.mampuyaExam.entity;
 
+import com.fasterxml.jackson.annotation.JsonView;
+import fr.charly.mampuyaExam.json_views.JsonViews;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
@@ -11,7 +13,9 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import org.json.JSONArray;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @NoArgsConstructor
@@ -22,23 +26,30 @@ public class User implements UserDetails  {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
+    @JsonView(JsonViews.UserShow.class)
     private String id;
 
     @Column(nullable = false)
+    @JsonView(JsonViews.UserShow.class)
     private String username;
 
     @Column(nullable = false)
+    @JsonView(JsonViews.UserShow.class)
     private String email;
 
     @Column(nullable = false)
     private String password;
 
+    @JsonView(JsonViews.UserShow.class)
     private String avatar = null;
 
+    @JsonView(JsonViews.UserShow.class)
     private LocalDate birthedAt;
 
+    @JsonView(JsonViews.UserShow.class)
     private LocalDateTime createdAt;
 
+    @JsonView(JsonViews.UserShow.class)
     private Integer level = 1;
 
     private String roles;
@@ -48,14 +59,20 @@ public class User implements UserDetails  {
 
 
 
+    @JsonView(JsonViews.UserShow.class)
     public boolean isAdmin() {
-        return true;
+        return roles.contains("ROLE_ADMIN");
     }
 
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of();
+        List<GrantedAuthority> authorities = new ArrayList<>();
+        JSONArray roles = new JSONArray(this.roles);
+        roles.forEach(role -> {
+            authorities.add(new SimpleGrantedAuthority(role.toString()));
+        });
+        return authorities;
     }
 
     @Override

@@ -19,13 +19,13 @@ public class MapRestController {
     private MapService mapService;
 
     @GetMapping
-    @JsonView(JsonViews.MapMinimalView.class)
+    @JsonView(JsonViews.MapList.class)
     public List<Map> list() {
         return mapService.list();
     }
 
     @GetMapping("/{id}")
-    @JsonView(JsonViews.MapMinimalView.class)
+    @JsonView(JsonViews.MapShow.class)
     public Map show(@PathVariable Long id) {
         return mapService.findOneById(id);
     }
@@ -33,13 +33,13 @@ public class MapRestController {
 
 
     @PostMapping
-    @JsonView(JsonViews.MapMinimalView.class)
+    @JsonView(JsonViews.MapShow.class)
     public Map create(@Valid @RequestBody MapDTO dto) {
         return mapService.create(dto);
     }
 
     @PutMapping("/{id}")
-    @JsonView(JsonViews.MapMinimalView.class)
+    @JsonView(JsonViews.MapShow.class)
     public Map update(@Valid @RequestBody MapDTO dto, @PathVariable Long id ){
         return mapService.update(dto, id);
     }

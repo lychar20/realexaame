@@ -19,13 +19,14 @@ public class Map {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @JsonView(JsonViews.MapList.class)
     private Long id;
 
-    @JsonView(JsonViews.MapMinimalView.class)
+    @JsonView(JsonViews.MapShow.class)
     @Column(nullable = false)
     private String name;
 
-    @JsonView(JsonViews.MapMinimalView.class)
+    @JsonView(JsonViews.MapShow.class)
     private LocalDateTime createdAt;
 
 //    @OneToMany(mappedBy = "map")
